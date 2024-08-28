@@ -1,0 +1,87 @@
+[
+  {
+    "username": "Dalia Gomez",
+    "email": "bkernighan@techfriends.dev",
+    "password": "password01"
+  },
+  {
+    "username": "Alejandro Uribe",
+    "email": "mkanatalexander@techfriends.dev",
+    "password": "password02"
+  },
+  {
+    "username": "Miguel Perez",
+    "email": "wtls@techfriends.dev",
+    "password": "password03"
+  },
+  {
+    "username": "Rodrigo Lavalle",
+    "email": "kbeck@techfriends.dev",
+    "password": "password04"
+  },
+  {
+    "username": "Eduardo Sebastian",
+    "email": "evberard@techfriends.dev",
+    "password": "password05"
+  },
+  {
+    "username": "Karen Gutierrez",
+    "email": "akay@techfriends.dev",
+    "password": "password06"
+  },
+  {
+    "username": "Flavio",
+    "email": "choare@techfriends.dev",
+    "password": "password07"
+  },
+  {
+    "username": "Cris Loera",
+    "email": "dthom5as@techfriends.dev",
+    "password": "password08"
+  },
+  {
+    "username": "Carlos",
+    "email": "dknu4th@techfriends.dev",
+    "password": "password09"
+  },
+  {
+    "username": "Isis Nava",
+    "email": "lernantin3o@techfriends.dev",
+    "password": "password10"
+  },
+  {
+    "username": "Yordano",
+    "email": "lernantin2o@techfriends.dev",
+    "password": "password11"
+  },
+  {
+    "username": "Gaby Villaseñor",
+    "email": "lernantin1o@techfriends.dev",
+    "password": "password12"
+  },
+  {
+    "username": "Vane",
+    "email": "lernantrino@techfriends.dev",
+    "password": "password13"
+  },
+  {
+    "username": "Enersto H.",
+    "email": "lernarntino@techfriends.dev",
+    "password": "password14"
+  },
+  {
+    "username": "David Miranda",
+    "email": "lernaentino@techfriends.dev",
+    "password": "password15"
+  },
+  {
+    "username": "Karime",
+    "email": "lernawntino@techfriends.dev",
+    "password": "password16"
+  },
+  {
+    "username": "Yo",
+    "email": "mango@email.dev",
+    "password": "password17"
+  }
+]
