@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 const ThoughtList = ({
   thoughts,
   title,
+  likes,
   showTitle = true,
   showUsername = true,
 }) => {
@@ -22,7 +23,7 @@ const ThoughtList = ({
                   className="text-light"
                   to={`/profiles/${thought.thoughtAuthor}`}
                 >
-                  {thought.thoughtAuthor} <br />
+                  {thought.thoughtAuthor} <span>{thought.likes} likes</span> <br />
                   <span style={{ fontSize: '1rem' }}>
                   Had this spark on {thought.createdAt}
                   </span>
