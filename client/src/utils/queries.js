@@ -21,6 +21,7 @@ export const QUERY_THOUGHTS = gql`
       _id
       thoughtText
       thoughtAuthor
+      likes
       createdAt
     }
   }
