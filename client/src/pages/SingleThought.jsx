@@ -24,7 +24,7 @@ const SingleThought = () => {
   return (
     <div className="my-3">
       <h3 className="card-header bg-dark text-light p-2 m-0">
-        {thought.thoughtAuthor} <br />
+        {thought.thoughtAuthor} <span>{thought.likes} likes</span> <br />
         <span style={{ fontSize: '1rem' }}>
         Sparked this idea on {thought.createdAt}
         </span>

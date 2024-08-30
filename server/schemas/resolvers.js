@@ -64,6 +64,17 @@ const resolvers = {
       throw AuthenticationError;
       ("You need to be logged in!");
     },
+    addLikes: async (parent, { thoughtId }, context) => {
+      if (context.user) {
+        const updatedThought = await Thought.findOneAndUpdate(
+          { _id: thoughtId },
+          { $inc: { likes: 1} },
+          {new: true}
+        );
+        return updatedThought;
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
     addComment: async (parent, { thoughtId, commentText }, context) => {
       if (context.user) {
         return Thought.findOneAndUpdate(
