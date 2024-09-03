@@ -54,11 +54,4 @@ export const ADD_COMMENT = gql`
     }
   }
 `;
-export const ADD_LIKES = gql`
-  mutation addLikes($thoughtId: ID!) {
-    addLikes(thoughtId: $thoughtId) {
-      _id
-      likes
-    }
-  }
-`;
+

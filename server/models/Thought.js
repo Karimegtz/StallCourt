@@ -14,11 +14,6 @@ const thoughtSchema = new Schema({
     required: true,
     trim: true,
   },
-  likes: {
-    type: Number,
-    default: 0,
-    required: false,
-  },
   createdAt: {
     type: Date,
     default: Date.now,

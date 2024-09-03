@@ -12,8 +12,7 @@ const ThoughtForm = () => {
 
   const [characterCount, setCharacterCount] = useState(0);
 
-  const [addThought, { error }] = useMutation
-  (ADD_THOUGHT, {
+  const [addThought, { error }] = useMutation(ADD_THOUGHT, {
     refetchQueries: [
       QUERY_THOUGHTS,
       'getThoughts',
@@ -50,13 +49,13 @@ const ThoughtForm = () => {
 
   return (
     <div>
-      <h3>What's sparking your techy thoughts? Share what you love about StallCourt®!</h3>
+      <h3 className="text-white">What's sparking your techy thoughts? Share what you love about StallCourt®!</h3>
 
       {Auth.loggedIn() ? (
         <>
           <p
             className={`m-0 ${
-              characterCount === 280 || error ? 'text-danger' : ''
+              characterCount === 280 || error ? 'text-danger' : 'text-light'
             }`}
           >
             Word Count: {characterCount}/280
@@ -66,19 +65,35 @@ const ThoughtForm = () => {
             onSubmit={handleFormSubmit}
           >
             <div className="col-12 col-lg-9">
-              <textarea
-                name="thoughtText"
-                placeholder="Here's a new thought..."
-                value={thoughtText}
-                className="form-input w-100"
-                style={{ lineHeight: '1.5', resize: 'vertical' }}
-                onChange={handleChange}
-              ></textarea>
-            </div>
+  <textarea
+    name="thoughtText"
+    placeholder="Here's a new thought..."
+    value={thoughtText}
+    className="form-input w-100"
+    style={{
+      lineHeight: '1.5',
+      resize: 'none', // Evitar que el usuario cambie el tamaño manualmente
+      backgroundColor: '#2C2C3E',
+      color: '#E0E0E0',
+      border: '1px solid #444',
+      borderRadius: '5px',
+      padding: '10px',
+      minHeight: '100px', // Altura mínima aumentada
+      maxHeight: '300px', // Altura máxima, opcional
+      overflowY: 'auto', // Añade scroll vertical si el contenido es mayor al maxHeight
+    }}
+    rows="4" // Inicialmente, ocupa 4 líneas
+    onChange={handleChange}
+    onInput={(e) => {
+      e.target.style.height = 'auto'; // Resetea la altura antes de calcular la nueva altura
+      e.target.style.height = `${e.target.scrollHeight}px`; // Ajusta la altura según el contenido
+    }}
+  ></textarea>
+</div>
 
             <div className="col-12 col-lg-3">
-              <button className="btn btn-primary btn-block py-3" type="submit">
-              Share a Spark
+              <button className="btn btn-custom btn-block py-3" type="submit">
+                Share a Spark
               </button>
             </div>
             {error && (
@@ -89,9 +104,9 @@ const ThoughtForm = () => {
           </form>
         </>
       ) : (
-        <p>
+        <p className="text-light">
           Log in to light up StallCourt® with your thoughts. Please{' '}
-          <Link to="/login">login</Link> or <Link to="/signup">signup.</Link>
+          <Link to="/login" className="text-primary">login</Link> or <Link to="/signup" className="text-primary">signup.</Link>
         </p>
       )}
     </div>

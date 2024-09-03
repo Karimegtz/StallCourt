@@ -10,17 +10,17 @@ const Home = () => {
   const thoughts = data?.thoughts || [];
 
   return (
-    <main>
+    <main className="bg-dark text-light min-vh-100">
       <div className="flex-row justify-center">
         <div
-          className="col-12 col-md-10 mb-3 p-3"
-          style={{ border: '1px dotted #1a1a1a' }}
+          className="col-12 col-md-10 mb-3 p-3 bg-secondary text-light"
+          style={{ border: '1px dotted #444' }}
         >
           <ThoughtForm />
         </div>
         <div className="col-12 col-md-8 mb-3">
           {loading ? (
-            <div>Revving up the code engines...</div>
+            <div className="text-light">Revving up the code engines...</div>
           ) : (
             <ThoughtList
               thoughts={thoughts}
