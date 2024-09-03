@@ -33,14 +33,13 @@ const ThoughtList = ({
       console.error("Error removing like:", error);
     }
   };
-
   return (
     <div>
-      {showTitle && <h3>{title}</h3>}
+      {showTitle && <h3 className="text-light">{title}</h3>}
       {thoughts &&
         thoughts.map((thought) => (
-          <div key={thought._id} className="card mb-3">
-            <h4 className="card-header bg-primary text-light p-2 m-0">
+          <div key={thought._id} className="card mb-3 bg-dark text-light">
+            <h4 className="card-header bg-secondary text-warning p-2 m-0">
               {showUsername ? (
                 <Link
                   className="text-light"
@@ -59,7 +58,7 @@ const ThoughtList = ({
                 </>
               )}
             </h4>
-            <div className="card-body bg-light p-2">
+            <div className="card-body bg-dark text-light p-2">
               <p>{thought.thoughtText}</p>
               <button
                 className="btn btn-success"

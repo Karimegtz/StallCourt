@@ -17,7 +17,6 @@ const httpLink = createHttpLink({
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('id_token');
- 
   return {
     headers: {
       ...headers,
@@ -34,11 +33,12 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <div className="flex-column justify-flex-start min-100-vh">
+      <div className="d-flex flex-column min-vh-100">
         <Header />
-        <div className="container">
+        <main role="main" className="container-custom flex-grow-1 d-flex flex-column justify-content-center">
+          {/* Usamos la clase container-custom para aplicar el estilo del contenedor personalizado */}
           <Outlet />
-        </div>
+        </main>
         <Footer />
       </div>
     </ApolloProvider>

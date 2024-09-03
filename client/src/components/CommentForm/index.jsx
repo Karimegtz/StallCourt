@@ -40,17 +40,17 @@ const CommentForm = ({ thoughtId }) => {
   };
 
   return (
-    <div>
-      <h4>Sum up Brit and Chris in just one word—if you dare!</h4>
+    <div className="container-custom p-4">
+      <h4 className="text-white">Sum up Brit and Chris in just one word—if you dare!</h4>
 
       {Auth.loggedIn() ? (
         <>
           <p
             className={`m-0 ${
-              characterCount === 280 || error ? 'text-danger' : ''
+              characterCount === 280 || error ? 'text-danger' : 'text-light'
             }`}
           >
-            Word Count: {characterCount}/1180
+            Word Count: {characterCount}/280
             {error && <span className="ml-2">{error.message}</span>}
           </p>
           <form
@@ -62,23 +62,30 @@ const CommentForm = ({ thoughtId }) => {
                 name="commentText"
                 placeholder="Add your comment..."
                 value={commentText}
-                className="form-input w-100"
-                style={{ lineHeight: '1.5', resize: 'vertical' }}
+                className="form-input w-100 text-dark"
+                style={{
+                  lineHeight: '1.5',
+                  resize: 'vertical',
+                  backgroundColor: '#2C2C3E',
+                  color: '#E0E0E0',
+                  border: '1px solid #444',
+                  borderRadius: '5px',
+                }}
                 onChange={handleChange}
               ></textarea>
             </div>
 
             <div className="col-12 col-lg-3">
-              <button className="btn btn-primary btn-block py-3" type="submit">
-              Drop Your Thoughts
+              <button className="btn btn-custom btn-block py-3" type="submit">
+                Drop Your Thoughts
               </button>
             </div>
           </form>
         </>
       ) : (
-        <p>
+        <p className="text-light">
           Mind sharing? Log in first to spill your thoughts!{' '}
-          <Link to="/login">login</Link> or <Link to="/signup">signup.</Link>
+          <Link to="/login" className="text-primary">login</Link> or <Link to="/signup" className="text-primary">signup.</Link>
         </p>
       )}
     </div>

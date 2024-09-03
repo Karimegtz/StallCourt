@@ -19,24 +19,27 @@ const SingleThought = () => {
   const thought = data?.thought || {};
 
   if (loading) {
-    return <div>Gearin' up the circuits...</div>;
+    return <div className="text-light">Gearin' up the circuits...</div>;
   }
   return (
-    <div className="my-3">
-      <h3 className="card-header bg-dark text-light p-2 m-0">
+    <div className="my-3 bg-dark text-light p-4 rounded">
+      <h3 className="card-header bg-secondary text-warning p-2 m-0">
         {thought.thoughtAuthor} <span>{thought.likes} likes</span> <br />
-        <span style={{ fontSize: '1rem' }}>
-        Sparked this idea on {thought.createdAt}
+        <span style={{ fontSize: '1rem', color: '#E0E0E0' }}>
+          Sparked this idea on {thought.createdAt}
         </span>
       </h3>
-      <div className="bg-light py-4">
+      <div className="bg-dark py-4">
         <blockquote
           className="p-4"
           style={{
             fontSize: '1.5rem',
             fontStyle: 'italic',
-            border: '2px dotted #1a1a1a',
+            border: '2px dotted #444',
             lineHeight: '1.5',
+            backgroundColor: '#2C2C3E',
+            color: '#E0E0E0',
+            borderRadius: '5px',
           }}
         >
           {thought.thoughtText}
@@ -46,7 +49,7 @@ const SingleThought = () => {
       <div className="my-5">
         <CommentList comments={thought.comments} />
       </div>
-      <div className="m-3 p-4" style={{ border: '1px dotted #1a1a1a' }}>
+      <div className="m-3 p-4 bg-secondary text-light" style={{ border: '1px dotted #444' }}>
         <CommentForm thoughtId={thought._id} />
       </div>
     </div>
