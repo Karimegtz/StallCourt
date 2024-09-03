@@ -1,49 +1,38 @@
-import { Link } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import { useMutation } from "@apollo/client";
-import { ADD_LIKES } from "../../utils/mutations";
+import { Link } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
+import { ADD_LIKE, REMOVE_LIKE } from '../../utils/mutations'; // Import your GraphQL mutations
 
 const ThoughtList = ({
   thoughts,
   title,
-  likes,
   showTitle = true,
   showUsername = true,
+  userId, // Pass the user ID as a prop
 }) => {
-  // State to track likes by the current user
-  const [likedThoughts, setLikedThoughts] = useState([]);
-
-  const [addLike] = useMutation(ADD_LIKES);
-
-  useEffect(() => {
-    // Get liked thoughts from local storage or initialize it
-    const liked = JSON.parse(localStorage.getItem("likedThoughts")) || [];
-    setLikedThoughts(liked);
-  }, []);
-
-  const handleLike = async (thoughtId) => {
-    if (!likedThoughts.includes(thoughtId)) {
-      try {
-        await addLike({
-          variables: { thoughtId },
-        });
-
-        // Update local state and localStorage
-        const updatedLikedThoughts = [...likedThoughts, thoughtId];
-        setLikedThoughts(updatedLikedThoughts);
-        localStorage.setItem(
-          "likedThoughts",
-          JSON.stringify(updatedLikedThoughts)
-        );
-      } catch (e) {
-        console.error(e);
-      }
-    }
-  };
-
   if (!thoughts.length) {
     return <h3>Be the first to ignite a thought!</h3>;
   }
+
+  const [addLike] = useMutation(ADD_LIKE);
+  const [removeLike] = useMutation(REMOVE_LIKE);
+
+  const handleLike = async (thoughtId) => {
+    try {
+      await addLike({ variables: { thoughtId } });
+      // Optionally, refetch the thoughts or update the UI to reflect the new like
+    } catch (error) {
+      console.error("Error adding like:", error);
+    }
+  };
+
+  const handleUnlike = async (thoughtId) => {
+    try {
+      await removeLike({ variables: { thoughtId } });
+      // Optionally, refetch the thoughts or update the UI to reflect the removed like
+    } catch (error) {
+      console.error("Error removing like:", error);
+    }
+  };
 
   return (
     <div>
@@ -55,16 +44,16 @@ const ThoughtList = ({
               {showUsername ? (
                 <Link
                   className="text-light"
-                  to={`/profiles/${thought.thoughtAuthor}`}>
-                  {thought.thoughtAuthor} <span>{thought.likes} likes</span>{" "}
-                  <br />
-                  <span style={{ fontSize: "1rem" }}>
+                  to={`/profiles/${thought.thoughtAuthor}`}
+                >
+                  {thought.thoughtAuthor} <br />
+                  <span style={{ fontSize: '1rem' }}>
                     Had this spark on {thought.createdAt}
                   </span>
                 </Link>
               ) : (
                 <>
-                  <span style={{ fontSize: "1rem" }}>
+                  <span style={{ fontSize: '1rem' }}>
                     You sparked this idea on {thought.createdAt}
                   </span>
                 </>
@@ -72,17 +61,27 @@ const ThoughtList = ({
             </h4>
             <div className="card-body bg-light p-2">
               <p>{thought.thoughtText}</p>
+              <button
+                className="btn btn-success"
+                onClick={() => handleLike(thought._id)}
+              >
+                Like
+              </button>
+              <button
+                className="btn btn-danger"
+                onClick={() => handleUnlike(thought._id)}
+              >
+                Unlike
+              </button>
+              <div>
+                {/* Ensure likes is initialized as an array */}
+                {(thought.likes || []).length} {((thought.likes || []).length === 1) ? 'Like' : 'Likes'}
+              </div>
             </div>
-            <button
-              className="btn btn-primary btn-block btn-squared"
-              onClick={() => handleLike(thought._id)}
-              disabled={likedThoughts.includes(thought._id)}
-            >
-              {likedThoughts.includes(thought._id) ? 'Liked' : 'Like'} this thought
-            </button>
             <Link
               className="btn btn-primary btn-block btn-squared"
-              to={`/thoughts/${thought._id}`}>
+              to={`/thoughts/${thought._id}`}
+            >
               Jump into the conversation on this spark.
             </Link>
           </div>

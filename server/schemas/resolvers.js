@@ -64,17 +64,6 @@ const resolvers = {
       throw AuthenticationError;
       ("You need to be logged in!");
     },
-    addLikes: async (parent, { thoughtId }, context) => {
-      if (context.user) {
-        const updatedThought = await Thought.findOneAndUpdate(
-          { _id: thoughtId },
-          { $inc: { likes: 1} },
-          {new: true}
-        );
-        return updatedThought;
-      }
-      throw new AuthenticationError("You need to be logged in!");
-    },
     addComment: async (parent, { thoughtId, commentText }, context) => {
       if (context.user) {
         return Thought.findOneAndUpdate(
@@ -124,6 +113,34 @@ const resolvers = {
         );
       }
       throw AuthenticationError;
+    },
+    async addLike(parent, { thoughtId }, context) {
+      const userId = context.user._id; // Assuming user ID is available in context
+      const thought = await Thought.findById(thoughtId);
+      if (!thought) throw new Error("Thought not found");
+
+      // Check if the user has already liked the thought
+      if (!thought.likes.includes(userId)) {
+        thought.likes.push(userId);
+        await thought.save();
+      }
+
+      return thought;
+    },
+    async removeLike(parent, { thoughtId }, context) {
+      const userId = context.user._id; // Assuming user ID is available in context
+      const thought = await Thought.findById(thoughtId);
+      if (!thought) throw new Error("Thought not found");
+
+      // Remove the like if it exists
+      if (thought.likes.includes(userId)) {
+        thought.likes = thought.likes.filter(
+          (id) => id.toString() !== userId.toString()
+        );
+        await thought.save();
+      }
+
+      return thought;
     },
   },
 };
