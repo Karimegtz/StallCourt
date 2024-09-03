@@ -38,7 +38,26 @@ const thoughtSchema = new Schema({
       },
     },
   ],
+  likes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User", // Assuming you have a User model
+    },
+  ],
 });
+
+thoughtSchema.methods.addLike = function (userId) {
+  if (!this.likes.includes(userId)) {
+    this.likes.push(userId);
+    return this.save();
+  }
+  return Promise.resolve(this);
+};
+
+thoughtSchema.methods.removeLike = function (userId) {
+  this.likes = this.likes.filter((id) => id.toString() !== userId.toString());
+  return this.save();
+};
 
 const Thought = model("Thought", thoughtSchema);
 
